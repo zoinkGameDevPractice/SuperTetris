@@ -209,6 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4258778bfb1ea04196e394088720422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallSpeed: 0.7
+  fallBoost: 0.6
+  rotatePoint: {x: 0.5, y: 0.5, z: 0}
+  moveDelay: 0.4
 --- !u!1 &7625965072700612095
 GameObject:
   m_ObjectHideFlags: 0
