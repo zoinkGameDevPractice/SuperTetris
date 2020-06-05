@@ -212,7 +212,7 @@ MonoBehaviour:
   fallSpeed: 0.7
   fallBoost: 0.6
   rotatePoint: {x: 0.5, y: 0.5, z: 0}
-  moveDelay: 0.4
+  moveDelay: 0.1
 --- !u!1 &7625965072700612095
 GameObject:
   m_ObjectHideFlags: 0

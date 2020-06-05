@@ -130,6 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 264484763}
+  - component: {fileID: 264484764}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -151,6 +152,26 @@ Transform:
   m_Father: {fileID: 2011209787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &264484764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264484762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1f2451f94644374d875e50a1c4e83dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieces:
+  - {fileID: 6316670970229620364, guid: 439a49c53a74fcf4e920b8598e1fa08c, type: 3}
+  - {fileID: 6586899085370426391, guid: a19c2939244363042991e1749884028a, type: 3}
+  - {fileID: 6692483123261992956, guid: d2b67b6ca26c4304e8eb994dc9e38eb5, type: 3}
+  - {fileID: 6395854810575077250, guid: a470e1f5ffab60d4a87a5e233cb4d016, type: 3}
+  - {fileID: 9165579850402425236, guid: 56ac97eba1f828343b19f269edd23b93, type: 3}
+  - {fileID: 2909832597543363351, guid: 71273a627035de74ca5888bb0cceaf53, type: 3}
+  - {fileID: 8410245016045026354, guid: 3641cf1c75b746f4282d5732831c8d3c, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

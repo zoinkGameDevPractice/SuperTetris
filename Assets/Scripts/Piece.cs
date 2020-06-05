@@ -16,8 +16,9 @@ public class Piece : MonoBehaviour
     float move;
     float moveTimer;
 
-    static int height = 20;
     static int width = 10;
+    static int height = 20;
+    static Transform[,] grid = new Transform[width, height];
 
     // Update is called once per frame
     void Update()
@@ -34,6 +35,9 @@ public class Piece : MonoBehaviour
         if(!ValidMove())
         {
             transform.position -= new Vector3(0, -1f);
+            AddToGrid();
+            enabled = false;
+            Spawner.instance.Generate();
         }
     }
 
@@ -41,13 +45,19 @@ public class Piece : MonoBehaviour
     {
         foreach(Transform child in transform)
         {
-            if(Mathf.RoundToInt(child.position.x) >= width || Mathf.RoundToInt(child.position.x) < 0)
+            int x = Mathf.RoundToInt(child.position.x);
+            int y = Mathf.RoundToInt(child.position.y);
+
+            if (x >= width || x < 0)
             {
                 return false;
-            } else if(Mathf.RoundToInt(child.position.y) < 0 || Mathf.RoundToInt(child.position.y) >= height)
+            } else if(y < 0 || y >= height)
             {
                 return false;
             }
+
+            if (grid[x, y] != null)
+                return false;
         }
 
         return true;
@@ -94,6 +104,14 @@ public class Piece : MonoBehaviour
         {
             Fall();
             fallTimer = 0;
+        }
+    }
+
+    void AddToGrid()
+    {
+        foreach(Transform child in transform)
+        {
+            grid[Mathf.RoundToInt(child.transform.position.x), Mathf.RoundToInt(child.transform.position.y)] = child;
         }
     }
 
