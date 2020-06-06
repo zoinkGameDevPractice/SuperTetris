@@ -221,7 +221,6 @@ public class Piece : MonoBehaviour
 
     void Lose()
     {
-        print("you lost");
-        
+        Spawner.instance.Lose();
     }
 }

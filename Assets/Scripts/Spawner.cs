@@ -16,6 +16,11 @@ public class Spawner : MonoBehaviour
     public List<GameObject> pieces = new List<GameObject>();
     List<GameObject> possibilities = new List<GameObject>();
 
+    public GameObject gameOver;
+
+    public GameObject p;
+    GameObject heldObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +28,27 @@ public class Spawner : MonoBehaviour
         Generate();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (!heldObject)
+            {
+                Hold();
+                return;
+            }
+            if (heldObject)
+            {
+                Swap();
+                return;
+            }
+        }
+    }
+
     public void Generate()
     {
         int rand = Random.Range(0, possibilities.Count);
-        GameObject p = Instantiate(possibilities[rand], transform.position, Quaternion.identity);
+        p = Instantiate(possibilities[rand], transform.position, Quaternion.identity);
         foreach(GameObject obj in possibilities)
         {
             if(obj.tag == p.tag)
@@ -40,5 +62,25 @@ public class Spawner : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void Lose()
+    {
+        gameOver.transform.Find("Canvas").gameObject.SetActive(true);
+    }
+
+    void Hold()
+    {
+        heldObject = p;
+        Destroy(p);
+        Generate();
+    }
+
+    void Swap()
+    {
+        GameObject temp = p;
+        Destroy(p);
+        Instantiate(heldObject, transform.position, Quaternion.identity);
+        heldObject = temp;
     }
 }
