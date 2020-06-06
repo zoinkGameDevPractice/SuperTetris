@@ -18,8 +18,9 @@ public class Spawner : MonoBehaviour
 
     public GameObject gameOver;
 
-    public GameObject p;
+    GameObject p;
     GameObject heldObject;
+    GameObject objToHold;
 
     // Start is called before the first frame update
     void Start()
@@ -71,16 +72,24 @@ public class Spawner : MonoBehaviour
 
     void Hold()
     {
-        heldObject = p;
+        foreach(GameObject obj in pieces)
+        {
+            if (obj.tag == p.tag)
+                heldObject = obj;
+        }
         Destroy(p);
         Generate();
     }
 
     void Swap()
     {
-        GameObject temp = p;
+        foreach(GameObject obj in pieces)
+        {
+            if (obj.tag == p.tag)
+                objToHold = obj;
+        }
         Destroy(p);
-        Instantiate(heldObject, transform.position, Quaternion.identity);
-        heldObject = temp;
+        p = Instantiate(heldObject, transform.position, Quaternion.identity);
+        heldObject = objToHold;
     }
 }
