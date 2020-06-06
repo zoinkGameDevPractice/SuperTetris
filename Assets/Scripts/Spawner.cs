@@ -13,17 +13,33 @@ public class Spawner : MonoBehaviour
     }
     #endregion
 
-    public GameObject[] pieces;
+    public List<GameObject> pieces = new List<GameObject>();
+    List<GameObject> possibilities = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
+        possibilities.AddRange(pieces);
         Generate();
     }
 
     public void Generate()
     {
-        int rand = Random.Range(0, pieces.Length);
-        Instantiate(pieces[rand], transform.position, Quaternion.identity);
+        int rand = Random.Range(0, possibilities.Count);
+        GameObject p = Instantiate(possibilities[rand], transform.position, Quaternion.identity);
+        foreach(GameObject obj in possibilities)
+        {
+            if(obj.tag == p.tag)
+            {
+                possibilities.Remove(obj);
+                if (possibilities.Count == 0)
+                {
+                    print("reset");
+                    possibilities = new List<GameObject>();
+                    possibilities.AddRange(pieces);
+                }
+                return;
+            }
+        }
     }
 }

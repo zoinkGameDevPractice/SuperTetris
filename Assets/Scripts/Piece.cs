@@ -16,6 +16,9 @@ public class Piece : MonoBehaviour
     float move;
     float moveTimer;
 
+    public float gracePeriod = 0.1f;
+    float graceTimer;
+
     static int width = 10;
     static int height = 20;
     static Transform[,] grid = new Transform[width, height];
@@ -29,41 +32,7 @@ public class Piece : MonoBehaviour
         FallCalculation();
     }
 
-    void Fall()
-    {
-        transform.position += new Vector3(0, -1f);
-        if(!ValidMove())
-        {
-            transform.position -= new Vector3(0, -1f);
-            AddToGrid();
-            CheckForLines();
-            enabled = false;
-            Spawner.instance.Generate();
-        }
-    }
-
-    bool ValidMove()
-    {
-        foreach(Transform child in transform)
-        {
-            int x = Mathf.RoundToInt(child.position.x);
-            int y = Mathf.RoundToInt(child.position.y);
-
-            if (x >= width || x < 0)
-            {
-                return false;
-            } else if(y < 0 || y >= height)
-            {
-                return false;
-            }
-
-            if (grid[x, y] != null)
-                return false;
-        }
-
-        return true;
-    }
-
+    #region Input
     void InputCalculation()
     {
         move = Input.GetAxisRaw("Horizontal");
@@ -79,6 +48,30 @@ public class Piece : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
             Rotate(1);
     }
+    #endregion
+
+    #region Movement
+    bool ValidMove()
+    {
+        foreach(Transform child in transform)
+        {
+            int x = Mathf.RoundToInt(child.position.x);
+            int y = Mathf.RoundToInt(child.position.y);
+
+            if (x >= width || x < 0)
+            {
+                return false;
+            } else if(y < 0 || y >= height)
+            {
+                return false;
+            }
+       
+            if (grid[x, y] != null)
+                return false;
+        }
+
+        return true;
+    }
 
     void MoveCalculation()
     {
@@ -90,6 +83,7 @@ public class Piece : MonoBehaviour
                 transform.position -= new Vector3(move, 0);
             }
             moveTimer = 0;
+            graceTimer = 0;
         }
     }
 
@@ -108,6 +102,39 @@ public class Piece : MonoBehaviour
         }
     }
 
+    void Fall()
+    {
+        transform.position += new Vector3(0, -1f);
+        if(!ValidMove())
+        {
+            transform.position -= new Vector3(0, -1f);
+            if(graceTimer > gracePeriod)
+            {
+                AddToGrid();
+                CheckForLines();
+                Spawner.instance.Generate();
+                enabled = false;
+            }
+        }
+    }
+
+    void Rotate(int dir)
+    {
+        float angle = 0f;
+        if (dir == 0)
+            angle = -90f;
+        if (dir == 1)
+            angle = 90f;
+        transform.RotateAround(transform.TransformPoint(rotatePoint), new Vector3(0, 0, 1), angle);
+        if(!ValidMove())
+        {
+            transform.RotateAround(transform.TransformPoint(rotatePoint), new Vector3(0, 0, 1), -angle);
+        }
+        graceTimer = 0;
+    }
+    #endregion
+
+    #region Grid & Lines
     void AddToGrid()
     {
         foreach(Transform child in transform)
@@ -165,31 +192,12 @@ public class Piece : MonoBehaviour
             }
         }
     }
-
-    void Rotate(int dir)
-    {
-        if(dir == 0)
-        {
-            transform.RotateAround(transform.TransformPoint(rotatePoint), new Vector3(0, 0, 1), -90f);
-            if(!ValidMove())
-            {
-                transform.RotateAround(transform.TransformPoint(rotatePoint), new Vector3(0, 0, 1), 90f);
-            }
-        }
-
-        if(dir == 1)
-        {
-            transform.RotateAround(transform.TransformPoint(rotatePoint), new Vector3(0, 0, 1), 90f);
-            if(!ValidMove())
-            {
-                transform.RotateAround(transform.TransformPoint(rotatePoint), new Vector3(0, 0, 1), -90f);
-            }
-        }
-    }
+    #endregion
 
     void Timers()
     {
         moveTimer += Time.deltaTime;
         fallTimer += Time.deltaTime;
+        graceTimer += Time.deltaTime;
     }
 }
