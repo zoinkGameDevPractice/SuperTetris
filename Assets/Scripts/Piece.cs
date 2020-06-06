@@ -23,7 +23,24 @@ public class Piece : MonoBehaviour
     static int height = 20;
     static Transform[,] grid = new Transform[width, height];
 
-    // Update is called once per frame
+    #region Unity Functions
+    private void Start()
+    {
+        if(!ValidMove())
+        {
+            transform.position -= new Vector3(1, 0);
+            if(!ValidMove())
+            {
+                transform.position += new Vector3(2, 0);
+                if(!ValidMove())
+                {
+                    enabled = false;
+                    Lose();
+                }
+            }
+        }
+    }
+
     void Update()
     {
         Timers();
@@ -31,6 +48,7 @@ public class Piece : MonoBehaviour
         MoveCalculation();
         FallCalculation();
     }
+    #endregion
 
     #region Input
     void InputCalculation()
@@ -199,5 +217,11 @@ public class Piece : MonoBehaviour
         moveTimer += Time.deltaTime;
         fallTimer += Time.deltaTime;
         graceTimer += Time.deltaTime;
+    }
+
+    void Lose()
+    {
+        print("you lost");
+        
     }
 }

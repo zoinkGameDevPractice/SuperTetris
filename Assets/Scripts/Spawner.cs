@@ -34,7 +34,6 @@ public class Spawner : MonoBehaviour
                 possibilities.Remove(obj);
                 if (possibilities.Count == 0)
                 {
-                    print("reset");
                     possibilities = new List<GameObject>();
                     possibilities.AddRange(pieces);
                 }
