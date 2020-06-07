@@ -18,9 +18,12 @@ public class Spawner : MonoBehaviour
 
     public GameObject gameOver;
 
-    GameObject p;
+    public GameObject p;
     GameObject heldObject;
     GameObject objToHold;
+
+    public delegate void OnLineClear();
+    public OnLineClear onLineClear;
 
     [HideInInspector] public bool canHold = false;
 
@@ -88,6 +91,12 @@ public class Spawner : MonoBehaviour
         heldObject = objToHold;
         HoldImage.instance.SetSprite(heldObject.GetComponent<Piece>().sprite);
         canHold = false;
+    }
+
+    public void LineClearCallback()
+    {
+        if (onLineClear != null)
+            onLineClear.Invoke();
     }
 
     GameObject MatchPiece(GameObject p)

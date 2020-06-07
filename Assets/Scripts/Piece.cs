@@ -196,6 +196,7 @@ public class Piece : MonoBehaviour
             Destroy(grid[j, i].gameObject);
             grid[j, i] = null;
         }
+        Spawner.instance.LineClearCallback();
     }
 
     void RowDown(int i)
