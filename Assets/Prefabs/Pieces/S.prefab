@@ -375,3 +375,5 @@ MonoBehaviour:
   fallBoost: 0.6
   rotatePoint: {x: 0, y: 0, z: 0}
   moveDelay: 0.1
+  gracePeriod: 0.1
+  sprite: {fileID: 21300000, guid: 00c104e23edcc4a4082f9554fb44f478, type: 3}

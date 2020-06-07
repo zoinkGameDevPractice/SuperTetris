@@ -23,6 +23,8 @@ public class Piece : MonoBehaviour
     static int height = 20;
     static Transform[,] grid = new Transform[width, height];
 
+    public Sprite sprite;
+
     #region Unity Functions
     private void Start()
     {
@@ -128,6 +130,7 @@ public class Piece : MonoBehaviour
             transform.position -= new Vector3(0, -1f);
             if(graceTimer > gracePeriod)
             {
+                Spawner.instance.canHold = true;
                 AddToGrid();
                 CheckForLines();
                 Spawner.instance.Generate();

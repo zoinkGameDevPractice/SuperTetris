@@ -22,6 +22,8 @@ public class Spawner : MonoBehaviour
     GameObject heldObject;
     GameObject objToHold;
 
+    [HideInInspector] public bool canHold = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class Spawner : MonoBehaviour
                 Hold();
                 return;
             }
-            if (heldObject)
+            if (heldObject && canHold)
             {
                 Swap();
                 return;
@@ -72,24 +74,31 @@ public class Spawner : MonoBehaviour
 
     void Hold()
     {
-        foreach(GameObject obj in pieces)
-        {
-            if (obj.tag == p.tag)
-                heldObject = obj;
-        }
+        heldObject = MatchPiece(p);
+        HoldImage.instance.SetSprite(heldObject.GetComponent<Piece>().sprite);
         Destroy(p);
         Generate();
     }
 
     void Swap()
     {
-        foreach(GameObject obj in pieces)
-        {
-            if (obj.tag == p.tag)
-                objToHold = obj;
-        }
+        objToHold = MatchPiece(p);
         Destroy(p);
         p = Instantiate(heldObject, transform.position, Quaternion.identity);
         heldObject = objToHold;
+        HoldImage.instance.SetSprite(heldObject.GetComponent<Piece>().sprite);
+        canHold = false;
+    }
+
+    GameObject MatchPiece(GameObject p)
+    {
+        foreach(GameObject obj in pieces)
+        {
+            if(obj.tag == p.tag)
+            {
+                return obj;
+            }
+        }
+        return null;
     }
 }
