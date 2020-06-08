@@ -215,6 +215,8 @@ MonoBehaviour:
   moveDelay: 0.1
   gracePeriod: 0.1
   sprite: {fileID: 21300000, guid: c5d5d102a91146a4492aef6c55597422, type: 3}
+  particles: {fileID: 4620272291412214284, guid: fd64770e3fdf7dc43af4df6bff5bccc9,
+    type: 3}
 --- !u!1 &7625965072700612095
 GameObject:
   m_ObjectHideFlags: 0

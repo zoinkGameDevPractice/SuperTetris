@@ -377,3 +377,5 @@ MonoBehaviour:
   moveDelay: 0.1
   gracePeriod: 0.1
   sprite: {fileID: 21300000, guid: 00c104e23edcc4a4082f9554fb44f478, type: 3}
+  particles: {fileID: 4620272291412214284, guid: fd64770e3fdf7dc43af4df6bff5bccc9,
+    type: 3}

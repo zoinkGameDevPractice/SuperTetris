@@ -25,6 +25,8 @@ public class Piece : MonoBehaviour
 
     public Sprite sprite;
 
+    public ParticleSystem particles;
+
     #region Unity Functions
     private void Start()
     {
@@ -193,6 +195,7 @@ public class Piece : MonoBehaviour
     {
         for(int j = 0; j < width; j++)
         {
+            Instantiate(particles, grid[j, i].transform.position, Quaternion.identity);
             Destroy(grid[j, i].gameObject);
             grid[j, i] = null;
         }
