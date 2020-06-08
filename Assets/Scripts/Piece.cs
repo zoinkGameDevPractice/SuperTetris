@@ -175,7 +175,7 @@ public class Piece : MonoBehaviour
         {
             if(HasLine(i))
             {
-                LevelManager.instance.GetCurrentLevel().IncrementLines();
+                LevelManager.instance.IncrementLines();
                 DeleteLine(i);
                 RowDown(i);
             }

@@ -2309,6 +2309,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 990d6b98b1fa27647a4723c276ae5a30, type: 2}
   - {fileID: 11400000, guid: 12759d56125dc6843abe2f14cd049800, type: 2}
   - {fileID: 11400000, guid: 09022e3ffdfa39a41ad69114b80a9079, type: 2}
+  - {fileID: 11400000, guid: 4439244ae7f6b554599d1ff44fdd8181, type: 2}
   levelText: {fileID: 574273493}
 --- !u!4 &2059673389
 Transform:

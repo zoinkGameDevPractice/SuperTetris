@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d13c9727d00484097e05278076c2a1, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  linesToClear: 10
+  linesToClear: 5
   speed: 0.6
   canBeBoosted: 1
-  hasBeenCleared: 0
