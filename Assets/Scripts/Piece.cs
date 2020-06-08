@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    public float fallSpeed = 0.7f;
-    public float fallBoost = 0.6f;
+    float fallSpeed;
+    float fallBoost = 0f;
     float fallTimer;
     float newFallSpeed;
     bool accelerate = false;
@@ -30,6 +30,8 @@ public class Piece : MonoBehaviour
     #region Unity Functions
     private void Start()
     {
+        LevelManager.instance.onLevelChanged += SetFallSpeed;
+        SetFallSpeed();
         if(!ValidMove())
         {
             transform.position -= new Vector3(1, 0);
@@ -113,6 +115,7 @@ public class Piece : MonoBehaviour
     {
         if (accelerate)
         {
+            fallBoost = fallSpeed - 0.1f;
             newFallSpeed = fallSpeed - fallBoost;
         }
         else
@@ -172,6 +175,7 @@ public class Piece : MonoBehaviour
         {
             if(HasLine(i))
             {
+                LevelManager.instance.GetCurrentLevel().IncrementLines();
                 DeleteLine(i);
                 RowDown(i);
             }
@@ -229,5 +233,10 @@ public class Piece : MonoBehaviour
     void Lose()
     {
         Spawner.instance.Lose();
+    }
+
+    void SetFallSpeed()
+    {
+        fallSpeed = LevelManager.instance.GetCurrentLevel().speed;
     }
 }
